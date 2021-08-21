@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/teflacademyreceivecrmcodes/db" VERSION="2021082100" COMMENT="XMLDB file for Moodle local/teflacademyreceivecrmcodes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_teflacademycrmcodes" COMMENT="Stores CRM codes sent from The TEFL Academy Website">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="userenrolmentid"/>
+        <FIELD NAME="userenrolmentid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="crmdelegatecode"/>
+        <FIELD NAME="crmdelegatecode" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false" PREVIOUS="userenrolmentid" NEXT="crmcoursecode"/>
+        <FIELD NAME="crmcoursecode" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false" PREVIOUS="crmdelegatecode"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
