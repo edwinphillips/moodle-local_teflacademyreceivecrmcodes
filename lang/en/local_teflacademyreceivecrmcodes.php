@@ -23,3 +23,4 @@
  */
 
 $string['pluginname'] = 'The TEFL Academy Receive CRM Codes';
+$string['teflacademyreceivecrmcodes:processrequest'] = 'Process requests made to The TEFL Academy Receive CRM Codes web service';
