@@ -29,7 +29,6 @@ $services = array(
         'functions'          => array(
             'local_teflacademyreceivecrmcodes_process_request'
         ),
-        'requiredcapability' => 'local/teflacademyreceivecrmcodes:processrequest',
         'restrictedusers'    => 0,
         'enabled'            => 1,
         'shortname'          => 'teflacademyreceivecrmcodes',
@@ -42,7 +41,8 @@ $functions = array(
         'classname'   => 'local_teflacademyreceivecrmcodes_external',
         'methodname'  => 'process_teflacademy_request',
         'classpath'   => 'local/teflacademyreceivecrmcodes/externallib.php',
-        'description' => 'Receives CRM codes from The TEFL Academy website, and stores them in the users enrolment record.',
+        'description' => 'Receives CRM codes from The TEFL Academy website, and stores them joined to the user\'s student enrolment record for the specific course.',
         'type'        => 'write',
+        'capabilities' => 'local/teflacademyreceivecrmcodes:processrequest'
     ),
 );
