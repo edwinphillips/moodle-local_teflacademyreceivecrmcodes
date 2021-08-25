@@ -82,7 +82,7 @@ class local_teflacademyreceivecrmcodes_external extends external_api {
                    AND r.shortname = ?";
         $params = array($email, $courseidnumber, LOCAL_TEFLACADEMYRECEIVECRMCODES_STUDENT_SHORTNAME);
 
-        if ($userenrolmentid = $DB->get_record_sql($sql, $params)) {
+        if ($userenrolmentid = $DB->get_field_sql($sql, $params)) {
 
             // Record CRM codes.
             $record = new stdClass();
