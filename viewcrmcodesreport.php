@@ -149,7 +149,7 @@ if ($dataformat) {
 
     $downloadusers = new ArrayObject($users);
     $iterator = $downloadusers->getIterator();
-    \core\dataformat::download_data($filename, $dataformat, $columns, $iterator);
+    download_as_dataformat($filename, $dataformat, $columns, $iterator);
     exit;
 } else {
 
