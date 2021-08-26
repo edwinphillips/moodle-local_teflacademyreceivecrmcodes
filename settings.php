@@ -22,12 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'The TEFL Academy Receive CRM Codes';
-$string['teflacademyreceivecrmcodes:processrequest'] = 'Process requests made to The TEFL Academy Receive CRM Codes web service';
-$string['ttacrmcodesreport'] = 'The TEFL Academy CRM Codes Report';
-$string['crmcoderecords'] = 'CRM Code Records';
-$string['crmdelegatecode'] = 'CRM Delegate Code';
-$string['crmcoursecode'] = 'CRM Course Code';
-$string['coursename'] = 'Course Name';
-$string['downloaddatatableas'] = 'Download table data as';
-$string['nocrmcoderecordsfound'] = 'No CRM Code records found';
+defined('MOODLE_INTERNAL') || die;
+
+if (has_capability('local/teflacademyreceivecrmcodes:viewcrmcodesreport', context_system::instance())) {
+    $ADMIN->add(
+            'localplugins',
+            new admin_externalpage('teflacademyreceivecrmcodescrmcodesreport',
+                    get_string('ttacrmcodesreport', 'local_teflacademyreceivecrmcodes'),
+                    $CFG->wwwroot . '/local/teflacademyreceivecrmcodes/viewcrmcodesreport.php')
+    );
+}
