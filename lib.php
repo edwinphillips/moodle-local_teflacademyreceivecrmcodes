@@ -157,7 +157,7 @@ function local_teflacademyreceivecrmcodes_get_crm_codes_users_listing($sort='las
 
     $extrafields = get_all_user_name_fields(true, 'u');
 
-    $sql = "SELECT tacc.id, u.firstname, u.lastname, u.email, u.username,
+    $sql = "SELECT u.id, u.firstname, u.lastname, u.email, u.username,
                     c.id AS courseid, c.fullname AS coursename,
                     tacc.crmdelegatecode, tacc.crmcoursecode, $extrafields
               FROM {user} u
@@ -205,7 +205,7 @@ function local_teflacademyreceivecrmcodes_get_crm_codes_users_listing($sort='las
 
     $extrafields = get_all_user_name_fields(true, 'u');
 
-    $sql = "SELECT tacc.id, u.firstname, u.lastname AS surname, tacc.crmdelegatecode,
+    $sql = "SELECT u.id, u.firstname, u.lastname AS surname, tacc.crmdelegatecode,
                     c.fullname AS coursename, tacc.crmcoursecode
               FROM {user} u
               JOIN {user_enrolments} ue ON ue.userid = u.id
@@ -246,7 +246,7 @@ function local_teflacademyreceivecrmcodes_count_crm_codes_users($extraselect='',
         $params = $params + (array) $extraparams;
     }
 
-    $sql = "SELECT COUNT(tacc.id) AS total
+    $sql = "SELECT COUNT(u.id) AS total
               FROM {user} u
               JOIN {user_enrolments} ue ON ue.userid = u.id
               JOIN {enrol} e ON e.id = ue.enrolid
