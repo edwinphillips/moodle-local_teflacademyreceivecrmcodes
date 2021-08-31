@@ -26,6 +26,26 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/user/filters/lib.php');
 
+/**
+ * The local plugin class
+ */
+class local_teflacademyreceivecrmcodes_plugin {
+
+    /**
+     * Class constants
+     */
+
+    /**
+     * @const int       Max size of upload file.
+     */
+    const MAXFILESIZE                 = 51200;
+
+    /**
+     * @const string    Form id for filepicker form element.
+     */
+    const FORMID_FILES                = 'filepicker';
+}
+
 class local_teflacademyreceivecrmcodes_crmcodesreport_user_filtering extends user_filtering {
 
     /**
@@ -181,8 +201,7 @@ function local_teflacademyreceivecrmcodes_get_crm_codes_users_listing($sort='las
  * @param array $extraparams Additional parameters to use for the above $extraselect
  * @return array Array of user records and survey information for download
  */
-    function local_teflacademyreceivecrmcodes_get_crm_code_users_download($sort='firstname', $dir='ASC', $extraselect='',
-                           array $extraparams=null) {
+function local_teflacademyreceivecrmcodes_get_crm_code_users_download($sort='firstname', $dir='ASC', $extraselect='', array $extraparams=null) {
     global $CFG, $DB;
 
     $columnorder = array(

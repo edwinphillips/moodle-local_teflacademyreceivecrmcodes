@@ -22,22 +22,29 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php');
+require_once(__DIR__ . '/import_form.php');
 
-if (has_capability('local/teflacademyreceivecrmcodes:importcrmcodes', context_system::instance())) {
-    $ADMIN->add(
-            'localplugins',
-            new admin_externalpage('teflacademyreceivecrmcodesimportcrmcodes',
-                    get_string('ttacrmcodesimport', 'local_teflacademyreceivecrmcodes'),
-                    $CFG->wwwroot . '/local/teflacademyreceivecrmcodes/import.php')
-    );
-}
+$context = context_system::instance();
+require_capability('local/teflacademyreceivecrmcodes:importcrmcodes', $context);
 
-if (has_capability('local/teflacademyreceivecrmcodes:viewcrmcodesreport', context_system::instance())) {
-    $ADMIN->add(
-            'localplugins',
-            new admin_externalpage('teflacademyreceivecrmcodescrmcodesreport',
-                    get_string('ttacrmcodesreport', 'local_teflacademyreceivecrmcodes'),
-                    $CFG->wwwroot . '/local/teflacademyreceivecrmcodes/viewcrmcodesreport.php')
-    );
-}
+$PAGE->set_context($context);
+$PAGE->set_url('/local/teflacademyreceivecrmcodes/import.php');
+
+$page_head_title = get_string('importbrightofficereportexportfile', 'local_teflacademyreceivecrmcodes');
+$PAGE->set_title($page_head_title);
+$PAGE->set_heading($page_head_title);
+
+$file_picker_options = array(
+    'accepted_types' => array('.csv'),
+    'maxbytes'       => local_teflacademyreceivecrmcodes_plugin::MAXFILESIZE
+);
+
+$mform = new local_teflacademyreceivecrmcodes_import_form($PAGE->url->out(), array('options' => $file_picker_options));
+
+echo $OUTPUT->header();
+
+$mform->display();
+
+echo $OUTPUT->footer();

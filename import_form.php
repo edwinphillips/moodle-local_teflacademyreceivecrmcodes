@@ -22,22 +22,32 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+require_once($CFG->libdir.'/formslib.php');
 
-if (has_capability('local/teflacademyreceivecrmcodes:importcrmcodes', context_system::instance())) {
-    $ADMIN->add(
-            'localplugins',
-            new admin_externalpage('teflacademyreceivecrmcodesimportcrmcodes',
-                    get_string('ttacrmcodesimport', 'local_teflacademyreceivecrmcodes'),
-                    $CFG->wwwroot . '/local/teflacademyreceivecrmcodes/import.php')
-    );
-}
+/**
+ * Form definition for the plugin
+ *
+ */
+class local_teflacademyreceivecrmcodes_import_form extends moodleform {
 
-if (has_capability('local/teflacademyreceivecrmcodes:viewcrmcodesreport', context_system::instance())) {
-    $ADMIN->add(
-            'localplugins',
-            new admin_externalpage('teflacademyreceivecrmcodescrmcodesreport',
-                    get_string('ttacrmcodesreport', 'local_teflacademyreceivecrmcodes'),
-                    $CFG->wwwroot . '/local/teflacademyreceivecrmcodes/viewcrmcodesreport.php')
-    );
+    //Add elements to form
+    public function definition() {
+        global $CFG;
+
+        $mform = $this->_form; // Don't forget the underscore!
+
+        // File picker
+        $this->_form->addElement('header', 'identity', get_string('importfile', 'local_teflacademyreceivecrmcodes'));
+
+        $this->_form->addElement('filepicker', local_teflacademyreceivecrmcodes_plugin::FORMID_FILES, null, null, $this->_customdata['options']);
+
+        $this->add_action_buttons(true, get_string('import', 'local_teflacademyreceivecrmcodes'));
+
+    }
+
+    //Custom validation should be added here
+    function validation($data, $files) {
+
+        return array();
+    }
 }

@@ -32,3 +32,6 @@ $string['crmcoursecode'] = 'CRM Course Code';
 $string['coursename'] = 'Course Name';
 $string['downloaddatatableas'] = 'Download table data as';
 $string['nocrmcoderecordsfound'] = 'No CRM Code records found';
+$string['import'] = 'Import';
+$string['importfile'] = 'Import File';
+$string['importbrightofficereportexportfile'] = 'Import BrightOffice Report Export File';
