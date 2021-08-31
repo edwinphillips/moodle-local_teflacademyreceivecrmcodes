@@ -24,6 +24,15 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+if (has_capability('local/teflacademyreceivecrmcodes:importcrmcodes', context_system::instance())) {
+    $ADMIN->add(
+            'localplugins',
+            new admin_externalpage('teflacademyreceivecrmcodesimportcrmcodes',
+                    get_string('ttacrmcodesimport', 'local_teflacademyreceivecrmcodes'),
+                    $CFG->wwwroot . '/local/teflacademyreceivecrmcodes/crmcodesimport.php')
+    );
+}
+
 if (has_capability('local/teflacademyreceivecrmcodes:viewcrmcodesreport', context_system::instance())) {
     $ADMIN->add(
             'localplugins',

@@ -24,6 +24,7 @@
 
 $string['pluginname'] = 'The TEFL Academy Receive CRM Codes';
 $string['teflacademyreceivecrmcodes:processrequest'] = 'Process requests made to The TEFL Academy Receive CRM Codes web service';
+$string['ttacrmcodesimport'] = 'The TEFL Academy CRM Codes Import';
 $string['ttacrmcodesreport'] = 'The TEFL Academy CRM Codes Report';
 $string['crmcoderecords'] = 'CRM Code Records';
 $string['crmdelegatecode'] = 'CRM Delegate Code';
