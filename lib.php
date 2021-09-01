@@ -26,26 +26,6 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/user/filters/lib.php');
 
-/**
- * The local plugin class
- */
-class local_teflacademyreceivecrmcodes_plugin {
-
-    /**
-     * Class constants
-     */
-
-    /**
-     * @const int       Max size of upload file.
-     */
-    const MAXFILESIZE                 = 51200;
-
-    /**
-     * @const string    Form id for filepicker form element.
-     */
-    const FORMID_FILES                = 'filepicker';
-}
-
 class local_teflacademyreceivecrmcodes_crmcodesreport_user_filtering extends user_filtering {
 
     /**
@@ -274,4 +254,85 @@ function local_teflacademyreceivecrmcodes_count_crm_codes_users($extraselect='',
              WHERE {$select}";
 
     return $DB->count_records_sql($sql, $params);
+}
+
+/**
+ * Import the BrightOffice report file to the plugin database table.
+ *
+ * @param stored_file $import_file The uploaded file
+ * @return string
+ */
+function import_brightoffice_report_file(stored_file $import_file) {
+    global $DB;
+
+    // Default return value.
+    $result = '';
+
+    // Open and fetch the file contents.
+    $fh = $import_file->get_content_file_handle();
+
+    // Iterate through rows.
+    while (false !== ($linedata = fgetcsv($fh))) {
+
+        $coursecode   = $linedata[0];
+        $coursename   = $linedata[1];
+        $delegatecode = $linedata[2];
+        $delegatename = $linedata[3];
+        $email        = $linedata[4];
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            continue;
+        }
+
+        // Get User Enrolment ID from Email.
+        $sql = "SELECT ue.id
+                  FROM {user_enrolments} ue
+                  JOIN {user} u ON u.id = ue.userid
+                 WHERE u.email = ?";
+        if ($userenrolmentids = $DB->get_fieldset_sql($sql, array($email))) {
+            if (count($userenrolmentids) > 1) {
+                // Moodle has more than one user enrolment record for this email address.
+                // @todo - further processing will be required here.
+            } else if (count($userenrolmentids) == 0) {
+                // Moodle doesn't have any user enrolment records for this email address.
+                // @todo - should really keep a record of this somewhere?
+            } else {
+                // There is only one user enrolment id for the user in the Moodle database.
+                $userenrolmentid = $userenrolmentids[0];
+
+                // Create the data object.
+                $record = new stdClass();
+                $record->userenrolmentid = $userenrolmentid;
+                $record->crmdelegatecode = $delegatecode;
+                $record->crmcoursecode   = $coursecode;
+
+                // Check for existing records in the Moodle database.
+                if ($DB->record_exists('local_teflacademycrmcodes', array('userenrolmentid' => $userenrolmentid))) {
+                    // Database record(s) already exist.
+                    if ($DB->count_records('local_teflacademycrmcodes', array('userenrolmentid' => $userenrolmentid)) == 1 ) {
+                        // Let's just update the existing record - get the record Id.
+                        if ($recordid = $DB->get_field('local_teflacademycrmcodes', 'id', array('userenrolmentid' => $userenrolmentid))) {
+                            $record->id = $recordid;
+                            if ($DB->update_record('local_teflacademycrmcodes', $record)) {
+                                $result .= "Sucessfully updated CRM codes for {$email}<br/>";
+                            } else {
+                                $result .= "Failed updating CRM codes for {$email}<br/>";
+                                // @todo - should really keep a record of this somewhere?
+                            }
+                        }
+                    }
+                } else {
+                    // Insert a new record into the Moodle database.
+                    if ($DB->insert_record('local_teflacademycrmcodes', $record)) {
+                        $result .= "Sucessfully imported CRM codes for {$email}<br/>";
+                    } else {
+                        $result .= "Failed importing CRM codes for {$email}<br/>";
+                        // @todo - should really keep a record of this somewhere?
+                    }
+                }
+            }
+        }
+    }
+
+    return $result;
 }

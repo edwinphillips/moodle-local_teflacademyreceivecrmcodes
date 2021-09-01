@@ -36,15 +36,40 @@ $page_head_title = get_string('importbrightofficereportfile', 'local_teflacademy
 $PAGE->set_title($page_head_title);
 $PAGE->set_heading($page_head_title);
 
+$user_context = context_user::instance($USER->id);
+
+echo $OUTPUT->header();
+
 $file_picker_options = array(
     'accepted_types' => array('.csv'),
-    'maxbytes'       => local_teflacademyreceivecrmcodes_plugin::MAXFILESIZE
+    'maxbytes'       => 51200
 );
 
 $mform = new local_teflacademyreceivecrmcodes_import_form($PAGE->url->out(), array('options' => $file_picker_options));
 
-echo $OUTPUT->header();
+// Form processing.
+if ($mform->is_cancelled()) {
+    // @todo - process cancellation request.
 
-$mform->display();
+} else if ($formdata = $mform->get_data()) {
+    // Process validated data.
+
+    // Leave the file in the user's draft area since we will not keep it after processing.
+    $area_files = get_file_storage()->get_area_files($user_context->id, 'user', 'draft', $formdata->filepicker, null, false);
+
+    // Import the report file.
+    $results = import_brightoffice_report_file(array_shift($area_files));
+
+    // Display the import results.
+    echo $results;
+
+    // Clean up the file area.
+    get_file_storage()->delete_area_files($user_context->id, 'user', 'draft', $formdata->filepicker);
+
+} else {
+
+    // Display the form.
+    $mform->display();
+}
 
 echo $OUTPUT->footer();

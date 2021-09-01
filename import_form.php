@@ -43,8 +43,7 @@ class local_teflacademyreceivecrmcodes_import_form extends moodleform {
         $this->_form->addHelpButton('filepicker', 'importfile', 'local_teflacademyreceivecrmcodes');
         $this->_form->addRule('filepicker', null, 'required', null, 'client');
 
-        $this->add_action_buttons(true, get_string('import', 'local_teflacademyreceivecrmcodes'));
-
+        $this->add_action_buttons(true, get_string('importbrightofficereportfile', 'local_teflacademyreceivecrmcodes'));
     }
 
     //Custom validation should be added here
