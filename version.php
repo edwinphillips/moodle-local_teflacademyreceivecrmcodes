@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2021083104;
+$plugin->version   = 2021090100;
 $plugin->requires  = 2017051501;
 $plugin->component = 'local_teflacademyreceivecrmcodes';

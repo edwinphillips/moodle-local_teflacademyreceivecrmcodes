@@ -39,7 +39,9 @@ class local_teflacademyreceivecrmcodes_import_form extends moodleform {
         // File picker
         $this->_form->addElement('header', 'identity', get_string('importfile', 'local_teflacademyreceivecrmcodes'));
 
-        $this->_form->addElement('filepicker', local_teflacademyreceivecrmcodes_plugin::FORMID_FILES, null, null, $this->_customdata['options']);
+        $this->_form->addElement('filepicker', 'filepicker', null, null, $this->_customdata['options']);
+        $this->_form->addHelpButton('filepicker', 'importfile', 'local_teflacademyreceivecrmcodes');
+        $this->_form->addRule('filepicker', null, 'required', null, 'client');
 
         $this->add_action_buttons(true, get_string('import', 'local_teflacademyreceivecrmcodes'));
 

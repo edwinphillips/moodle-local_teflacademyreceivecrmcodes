@@ -34,4 +34,5 @@ $string['downloaddatatableas'] = 'Download table data as';
 $string['nocrmcoderecordsfound'] = 'No CRM Code records found';
 $string['import'] = 'Import';
 $string['importfile'] = 'Import File';
-$string['importbrightofficereportexportfile'] = 'Import BrightOffice Report Export File';
+$string['importfile_help'] = 'Upload or pick from a repository a BrightOffice report file. File should have a .csv extension.';
+$string['importbrightofficereportfile'] = 'Import BrightOffice Report File';

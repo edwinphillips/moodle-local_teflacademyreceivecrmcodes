@@ -32,7 +32,7 @@ require_capability('local/teflacademyreceivecrmcodes:importcrmcodes', $context);
 $PAGE->set_context($context);
 $PAGE->set_url('/local/teflacademyreceivecrmcodes/import.php');
 
-$page_head_title = get_string('importbrightofficereportexportfile', 'local_teflacademyreceivecrmcodes');
+$page_head_title = get_string('importbrightofficereportfile', 'local_teflacademyreceivecrmcodes');
 $PAGE->set_title($page_head_title);
 $PAGE->set_heading($page_head_title);
 
