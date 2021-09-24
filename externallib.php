@@ -70,6 +70,10 @@ class local_teflacademyreceivecrmcodes_external extends external_api {
             )
         );
 
+        if (!has_capability('local/teflacademyreceivecrmcodes:processrequest', context_system::instance())) {
+            return false;
+        }
+
         // Identify the user enrolment record.
         $sql = "SELECT ue.id
                   FROM {user_enrolments} ue
