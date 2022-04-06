@@ -292,50 +292,32 @@ function import_brightoffice_report_file(stored_file $import_file) {
         if ($userenrolmentids = $DB->get_fieldset_sql($sql, array($email))) {
             if (count($userenrolmentids) > 1) {
                 // Moodle has more than one user enrolment record for this email address.
-                // @todo - further processing will be required here.
-
+                // Get the course name from the .csv
                 switch ($coursename) {
-
                     case '120 Hour Online Course':
-                        $courseshortname = '';
+                        $courseshortname = 'The TEFL Academy TEFL Course (120 Hours)';
                         break;
-
                     case '120 Hour Online Level 3 Course':
-                        $courseshortname = '';
+                        $courseshortname = 'Level 3 Certificate in Teaching English as a Foreign Language (TEFL)';
                         break;
-
                     case '168 Hour Online Level 5 Course':
-                        $courseshortname = '';
-                        break;
-
-                    case 'Teaching Online and One to One Online Course':
-                        $courseshortname = '';
-                        break;
-
-                    case 'Teaching Young Learners Online Course':
-                        $courseshortname = '';
-                        break;
-
-                    case 'Teaching Business English Online Course':
-                        $courseshortname = '';
-                        break;
-
                     case 'Course: Combined':
-                        $courseshortname = '';
+                        $courseshortname = 'Level 5 TEFL Course (Qualifi)';
                         break;
-
+                    case 'Teaching Online and One to One Online Course':
+                        $courseshortname = 'Teaching English Online and One to One (30 hours)';
+                        break;
+                    case 'Teaching Young Learners Online Course':
+                        $courseshortname = 'Teaching English to Young Learners (30 hours)';
+                        break;
+                    case 'Teaching Business English Online Course':
+                        $courseshortname = 'Teaching Business English (30 hours)';
+                        break;
                     case 'Course: Webinar':
-                        $courseshortname = '';
-                        break;
-
                     case 'Course: Flexi':
-                        $courseshortname = '';
-                        break;
-
                     case 'Course: Reserve List':
                         $courseshortname = '';
                         break;
-
                 }
 
                 $sql = "SELECT ue.id
