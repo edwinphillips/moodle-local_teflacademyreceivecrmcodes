@@ -157,7 +157,7 @@ function local_teflacademyreceivecrmcodes_get_crm_codes_users_listing($sort='las
 
     $extrafields = get_all_user_name_fields(true, 'u');
 
-    $sql = "SELECT u.id, u.firstname, u.lastname, u.email, u.username,
+    $sql = "SELECT tacc.id as taccid, u.id, u.firstname, u.lastname, u.email, u.username,
                     c.id AS courseid, c.fullname AS coursename,
                     tacc.crmdelegatecode, tacc.crmcoursecode, $extrafields
               FROM {user} u
