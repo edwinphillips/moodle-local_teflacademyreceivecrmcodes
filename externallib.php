@@ -86,15 +86,28 @@ class local_teflacademyreceivecrmcodes_external extends external_api {
                    AND r.shortname = ?";
         $params = array($email, $courseidnumber, LOCAL_TEFLACADEMYRECEIVECRMCODES_STUDENT_SHORTNAME);
 
-        if ($userenrolmentid = $DB->get_field_sql($sql, $params)) {
+        if ($userenrolment = $DB->get_record($sql, $params)) {
 
             // Record CRM codes.
             $record = new stdClass();
-            $record->userenrolmentid = $userenrolmentid;
+            $record->userenrolmentid = $userenrolment->id;
             $record->crmdelegatecode = $crmdelegatecode;
             $record->crmcoursecode   = $crmcoursecode;
 
             if ($DB->insert_record('local_teflacademycrmcodes', $record)) {
+                // Send the enrolment updated event so that listeners in local_teflacademywebservices plugin
+                // will send extra data about the enrolment.
+                $event = \core\event\user_enrolment_updated::create(
+                    array(
+                        'objectid' => $userenrolment->id,
+                        'courseid' => $userenrolment->courseid,
+                        'context' => context_course::instance($userenrolment->courseid),
+                        'relateduserid' => $userenrolment->userid,
+                        'other' => array('enrol' => 'manual')
+                    )
+                );
+                $event->trigger();
+
                 return true;
             } else {
                 return false;
