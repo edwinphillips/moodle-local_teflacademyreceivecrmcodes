@@ -302,6 +302,9 @@ function import_brightoffice_report_file(stored_file $import_file) {
                         break;
                     case '168 Hour Online Level 5 Course':
                     case 'Course: Combined':
+                    case 'Course: Webinar':
+                    case 'Course: Flexi':
+                    case 'Course: Reserve List':
                         $courseshortname = 'Level 5 TEFL Course (Qualifi)';
                         break;
                     case 'Teaching Online and One to One Online Course':
@@ -312,11 +315,6 @@ function import_brightoffice_report_file(stored_file $import_file) {
                         break;
                     case 'Teaching Business English Online Course':
                         $courseshortname = 'Teaching Business English (30 hours)';
-                        break;
-                    case 'Course: Webinar':
-                    case 'Course: Flexi':
-                    case 'Course: Reserve List':
-                        $courseshortname = '';
                         break;
                 }
 
