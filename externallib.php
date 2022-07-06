@@ -75,7 +75,7 @@ class local_teflacademyreceivecrmcodes_external extends external_api {
         }
 
         // Identify the user enrolment record.
-        $sql = "SELECT ue.id
+        $sql = "SELECT ue.id, c.id AS courseid, u.id AS userid
                   FROM {user_enrolments} ue
                   JOIN {user} u ON u.id = ue.userid
                   JOIN {enrol} e ON e.id = ue.enrolid
