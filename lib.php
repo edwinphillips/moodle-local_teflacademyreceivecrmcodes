@@ -301,6 +301,8 @@ function import_brightoffice_report_file(stored_file $import_file) {
                         $courseshortname = 'Level 3 Certificate in Teaching English as a Foreign Language (TEFL)';
                         break;
                     case '168 Hour Online Level 5 Course':
+                    case 'New 168 Hour Level 5 Course':
+                    case '10 Hour Combined Courses':
                     case 'Course: Combined':
                     case 'Course: Webinar':
                     case 'Course: Flexi':
